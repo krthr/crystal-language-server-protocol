@@ -1,32 +1,22 @@
 schema: spec-driven
 
-# Project context (optional)
-# Add only constraints that should guide OpenSpec artifacts and workflows.
-# Include constraints an agent cannot infer by reading the code.
-# Keep general project documentation and discoverable codebase facts out.
-# Example:
-#   context: |
-#     Designs and tasks must cover Windows, macOS, and Linux
-#     Write all artifacts in Spanish
+context: |
+  Prefer small, incremental changes that satisfy the requested behavior.
+  Reuse existing code and Crystal's standard library before adding dependencies
+  or abstractions. Do not plan speculative features or infrastructure.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always state what is out of scope
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - State the smallest useful scope and explicit non-goals.
+  specs:
+    - For LSP or JSON-RPC behavior, cite the relevant protocol version and specification section; cover applicable interoperability and error cases.
+  design:
+    - Justify new dependencies against existing code and Crystal's standard library.
+  tasks:
+    - Include focused Crystal specs for changed behavior and regression coverage for bug fixes.
+    - Include verification with `crystal tool format --check src spec` and `crystal spec` for Crystal code changes.
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+operations:
+  apply:
+    guidance:
+      - Run the relevant checks before marking work complete; distinguish pre-existing failures from regressions and report any checks that could not run.
